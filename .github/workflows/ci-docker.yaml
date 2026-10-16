@@ -1,0 +1,37 @@
+name: CI_DOCKER_BUILD
+
+on:
+  push: 
+    paths-ignore:
+      - 'docs/**'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - 'README.md'
+      - 'SECURITY.md'
+  pull_request:
+  workflow_dispatch:
+
+
+jobs:
+  docker-build:
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            miniconda-arch-name: x86_64
+            runner: ubuntu-26.04
+          - arch: arm64
+            miniconda-arch-name: aarch64
+            runner: ubuntu-26.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          platforms: linux/${{ matrix.arch }}
+          tags: mattwiley/codeastro-mbw:latest-${{ matrix.arch }}
+          build-args: |
+            ARCH=${{ matrix.miniconda-arch-name }}
+          push: false # Explicitly set, but is default
