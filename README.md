@@ -17,6 +17,10 @@ learning repository, not a polished package.
   `make docker-build MINICONDA_ARCH_NAME=x86_64 OS_ARCH_NAME=amd64`);
   see [docs/NOTES.md](docs/NOTES.md) for the build args that target other
   platforms.
+- `course-materials/`: the unmodified workshop materials, one subdirectory per
+  day (e.g. [`Day1/README.md`](course-materials/Day1/README.md)).
+- `course-work/`: my own work done against the course materials, one
+  subdirectory per day.
 - `docs/`: installation notes and a [TODO](docs/TODO.md) list.
 
 ## Contributing and security
